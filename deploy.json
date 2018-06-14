@@ -1,8 +1,8 @@
 {
   "raspberry": {
-    "source": "src/hello.go",
+    "source": "examples/updown.go",
     "build": {
-      "name": "bin/mcp2017"
+      "name": "bin/examples/mcp23017_basic"
     },
     "target": {
       "user": "pi",
