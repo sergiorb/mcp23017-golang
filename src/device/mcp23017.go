@@ -53,15 +53,35 @@ func (m *MCP23017) SetPortLogic(port uint, logic bool) {
 
 	if port < PORT_QUANTITY/2 {
 
-		setPortLogicBankA(m, port, logic)
+		m.setPortLogicBankA(port, logic)
 
 	} else {
 
-		setPortLogicBankB(m, port, logic)
+		m.setPortLogicBankB(port, logic)
 	}
 }
 
-func setPortLogicBankA(m *MCP23017, port uint, logic bool) {
+func (m * MCP23017) SetLogic(logic uint16)  {
+
+	m.SetLogicBankA(uint8(logic))
+	m.SetLogicBankB(uint8(logic >> 8))
+}
+
+func (m * MCP23017) SetLogicBankA(logic byte) {
+
+	bankACurrentLogic = logic
+
+	m.write8(BANK_A_LOGIC_ADDRESS, int(bankACurrentLogic))
+}
+
+func (m * MCP23017) SetLogicBankB(logic byte) {
+
+	bankBCurrentLogic = logic
+
+	m.write8(BANK_B_LOGIC_ADDRESS, int(bankBCurrentLogic))
+}
+
+func (m *MCP23017) setPortLogicBankA(port uint, logic bool) {
 
 	var addressLogic byte
 
@@ -81,7 +101,7 @@ func setPortLogicBankA(m *MCP23017, port uint, logic bool) {
 	m.write8(BANK_A_LOGIC_ADDRESS, int(addressLogic))
 }
 
-func setPortLogicBankB(m *MCP23017, port uint, logic bool) {
+func (m *MCP23017) setPortLogicBankB(port uint, logic bool) {
 
 	var addressLogic byte
 

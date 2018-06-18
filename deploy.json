@@ -1,6 +1,6 @@
 {
   "raspberry": {
-    "source": "examples/updown.go",
+    "source": "examples/byte16.go",
     "build": {
       "name": "bin/examples/mcp23017_basic"
     },

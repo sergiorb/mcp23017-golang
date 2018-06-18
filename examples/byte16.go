@@ -6,6 +6,7 @@ import (
 	"github.com/op/go-logging"
 	"github.com/sergiorb/mcp23017-golang/src/device"
 	"golang.org/x/exp/io/i2c"
+  // "fmt"
 )
 
 const (
@@ -45,18 +46,27 @@ func main() {
 
 		mcp23017.SetAllPortsAsOutputs()
 
-		for i := 0; i < 16; i++ {
+    // 1011101111001100
+    var logic uint16 = 0xBBCC
 
-			mcp23017.SetPortLogic(uint(i), true)
+    mcp23017.SetLogic(logic)
+    time.Sleep(time.Duration(sleep) * time.Millisecond)
 
-			time.Sleep(time.Duration(sleep) * time.Millisecond)
-		}
+    logic ^= 0xFFFF
 
-		for i := 15; i >= 0; i-- {
+    mcp23017.SetLogic(logic)
+    time.Sleep(time.Duration(sleep) * time.Millisecond)
 
-			mcp23017.SetPortLogic(uint(i), false)
+    logic ^= 0xFFFF
 
-			time.Sleep(time.Duration(sleep) * time.Millisecond)
-		}
+    mcp23017.SetLogic(logic)
+    time.Sleep(time.Duration(sleep) * time.Millisecond)
+
+    logic ^= 0xFFFF
+
+    mcp23017.SetLogic(logic)
+    time.Sleep(time.Duration(sleep) * time.Millisecond)
+
+    mcp23017.SetLogic(0x0000)
 	}
 }
