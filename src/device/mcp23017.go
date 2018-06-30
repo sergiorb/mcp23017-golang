@@ -61,6 +61,18 @@ func (m *MCP23017) SetPortLogic(port uint, logic bool) {
 	}
 }
 
+func (m *MCP23017) SwichPortLogic(port uint) {
+
+	if port < PORT_QUANTITY/2 {
+
+		m.switchPortLogicBankA(port)
+
+	} else {
+
+		m.switchPortLogicBankB(port)
+	}
+}
+
 func (m * MCP23017) SetLogic(logic uint16)  {
 
 	m.SetLogicBankA(uint8(logic))
@@ -119,6 +131,16 @@ func (m *MCP23017) setPortLogicBankB(port uint, logic bool) {
 	bankBCurrentLogic = addressLogic
 
 	m.write8(BANK_B_LOGIC_ADDRESS, int(addressLogic))
+}
+
+func (m *MCP23017) switchPortLogicBankA(port uint) {
+
+	m.setPortLogicBankA(port, !utils.HasBit(int(bankACurrentLogic), port))
+}
+
+func (m *MCP23017) switchPortLogicBankB(port uint) {
+
+	m.setPortLogicBankB(port, !utils.HasBit(int(bankBCurrentLogic), port))
 }
 
 func (m *MCP23017) SetAllPortsAsOutputs() {
