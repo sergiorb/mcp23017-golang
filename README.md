@@ -1,4 +1,4 @@
-# mcp23017-golang
+# mcp23017-golang v0.1
  A mcp23017 golang library.
 
 ## Info
