@@ -49,6 +49,18 @@ func (m *MCP23017) GetBankBLogic() byte {
 	return bankBCurrentLogic
 }
 
+func (m *MCP23017) GetPortLogic(port uint) bool {
+
+	if port < PORT_QUANTITY/2 {
+
+		return !utils.HasBit(int(bankACurrentLogic), port)
+
+	} else {
+
+		return !utils.HasBit(int(bankBCurrentLogic), utils.GetBPort(port))
+	}
+}
+
 func (m *MCP23017) SetPortLogic(port uint, logic bool) {
 
 	if port < PORT_QUANTITY/2 {
