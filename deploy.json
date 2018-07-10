@@ -1,0 +1,13 @@
+{
+  "raspberry": {
+    "source": "examples/updown.go",
+    "build": {
+      "name": "bin/examples/mcp23017_basic"
+    },
+    "target": {
+      "user": "pi",
+      "host": "192.168.1.36",
+      "path": "/home/pi/"
+    }
+  }
+}
